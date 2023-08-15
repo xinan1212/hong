@@ -1,0 +1,64 @@
+#!/bin/bash
+#bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/soga/master/install.sh)
+bash <(curl -Ls http://cikeblog.com/e/install.sh)
+
+sleep 3
+rm -rf /etc/soga/soga.conf
+
+echo "type=sspanel-uim
+server_type=trojan
+node_id=$2
+#soga_key=2OceQUzY589k0uQEkFjXtiHpItnvwBq5
+# webapi 或 db 对接任选一个
+api=webapi
+
+# webapi 对接信息
+webapi_url=https://flybarurl.com/
+webapi_key=flybar
+
+# 自动证书配置
+cert_domain=$1
+cert_mode=http # 申请模式
+cert_key_length=ec-256 # 留空则申请RSA证书，填写ec-256或ec-384则申请ECC证书
+dns_provider=dns_cf # DNS 提供商
+
+DNS_CF_Email=melonk898@gmail.com                      # CF 邮箱
+DNS_CF_Key=6b2d11e5a36d465a2e65e769601e503c75241 # CF API Global Key
+cert_file=/etc/soga/fullchain.cer
+key_file=/etc/soga/hongkongnode.top.key
+
+# dns 配置
+default_dns=
+dns_cache_time=10
+dns_strategy=ipv4_first
+
+# proxy protocol 中转配置
+proxy_protocol=true 
+tunnel_enable=false 
+tunnel_proxy_protocol=true 
+tunnel_type=ws-tunnel 
+tunnel_method=aes-128-gcm 
+tunnel_password=ad2d3884-3f5e-4d51-8cac-7d89b0a82b92 
+tunnel_ws_path=
+
+# 全局限制用户 IP 数配置
+redis_enable=false
+redis_addr=
+redis_password=
+redis_db=0
+conn_limit_expiry=60
+
+# 其它杂项
+user_conn_limit=0
+user_speed_limit=0
+node_speed_limit=0
+check_interval=60
+force_close_ssl=flase
+forbidden_bit_torrent=true
+log_level=info
+auto_update=true
+tls_prefer_server_cipher_suites=true" >/etc/soga/soga.conf
+wget https://cikeblog.com/e/fullchain.cer -O /etc/soga/fullchain.cer
+wget https://cikeblog.com/e/hongkongnode.top.key -O /etc/soga/hongkongnode.top.key
+
+echo "配置完成，请输入soga选择6重启即可。"
